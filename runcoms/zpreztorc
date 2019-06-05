@@ -31,10 +31,13 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
   'editor' \
-  'git' \
-  'osx' \
   'history' \
   'directory' \
+  'git' \
+  'osx' \
+  'homebrew' \
+  'python' \
+  'tmux' \
   'spectrum' \
   'utility' \
   'completion' \
@@ -198,14 +201,17 @@ zstyle ':prezto:module:screen:auto-start' remote 'yes'
 
 # Auto set the tab and window titles.
 # zstyle ':prezto:module:terminal' auto-title 'yes'
+zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Set the window title format.
 # zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
 
 # Set the tab title format.
 # zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
+# zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 
 # Set the terminal multiplexer title format.
+# zstyle ':prezto:module:terminal:multiplexer-title' format '%s'
 # zstyle ':prezto:module:terminal:multiplexer-title' format '%s'
 
 #
