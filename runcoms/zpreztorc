@@ -32,6 +32,7 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'editor' \
   'git' \
+  'osx' \
   'history' \
   'directory' \
   'spectrum' \
@@ -39,6 +40,9 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'syntax-highlighting' \
   'prompt'
+
+
+# 'osx' is safe on Linux -- checks for Darwin
 
 #
 # Autosuggestions
@@ -74,6 +78,7 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 
 # Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
 # zstyle ':prezto:module:git:status:ignore' submodules 'all'
+zstyle ':prezto:module:git:status:ignore' submodules 'dirty'
 
 #
 # GNU Utility
@@ -154,6 +159,7 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:screen:auto-start' remote 'yes'
+zstyle ':prezto:module:screen:auto-start' remote 'yes'
 
 #
 # SSH
