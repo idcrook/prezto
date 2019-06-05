@@ -49,13 +49,10 @@ modpath () {
     unset modpathargs
 }
 
-
-
 modpath -q -b /usr/bin        /usr/local/bin
 modpath -q -b /usr/local/bin  /usr/local/sbin
 modpath -q -b /usr/local/bin  "$HOME"/bin
 
-# pip --user puts stuff in here; add to path before sourcing .bashrc
 # echo $(systemd-path user-binaries)
 modpath -q -b "$HOME"/bin     "$HOME"/.local/bin
 
@@ -74,7 +71,9 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
     # python3 - Homebrew
     if [ -d /usr/local/opt/python/libexec/bin ] ; then
+        modpath -f -d /usr/local/opt/python/libexec/bin
         modpath -q -b /usr/local/bin /usr/local/opt/python/libexec/bin
+        # echo $PATH
     fi
 
     # golang - Homebrew
