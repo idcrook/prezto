@@ -18,3 +18,10 @@ fi
 # handy workaround if terminal can't handle: PURE_POWER_MODE=portable exec zsh
 [[ $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
 source ~/.purepower
+
+# # Use emacs keybindings even if our EDITOR is set to vi
+# bindkey -e
+
+# completions on macOS:
+# MAIN: /usr/local/share/zsh/site-functions
+# other: /usr/local/opt/curl/share/zsh/site-functions

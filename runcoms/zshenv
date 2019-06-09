@@ -71,7 +71,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
     # python3 - Homebrew
     if [ -d /usr/local/opt/python/libexec/bin ] ; then
-        modpath -f -d /usr/local/opt/python/libexec/bin
+        modpath -q -f -d /usr/local/opt/python/libexec/bin
         modpath -q -b /usr/local/bin /usr/local/opt/python/libexec/bin
         # echo $PATH
     fi

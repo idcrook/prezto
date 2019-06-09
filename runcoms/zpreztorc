@@ -32,6 +32,7 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'editor' \
   'history' \
+  'command-not-found' \
   'directory' \
   'git' \
   'osx' \
@@ -41,11 +42,23 @@ zstyle ':prezto:load' pmodule \
   'spectrum' \
   'utility' \
   'completion' \
+  'fasd' \
   'syntax-highlighting' \
+  'history-substring-search' \
   'prompt'
 
 
+# 'syntax-highlighting' should be loaded before the prompt module.  if it's
+# used in conjunction with the history-substring-search module,
+# 'syntax-highlighting' must be loaded before the history-substring-search
+# module.
+
+# For completion to work, 'fasd' must be loaded after the completion module.
+
+
+
 # 'osx' is safe on Linux -- checks for Darwin
+# 'dpkg' is safe on macOS -- checks for dpkg and apt-get
 
 #
 # Autosuggestions
@@ -61,6 +74,8 @@ zstyle ':prezto:load' pmodule \
 # Set the entries to ignore in static */etc/hosts* for host completion.
 # zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
 #   '0.0.0.0' '127.0.0.1'
+zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
+  '0.0.0.0' '127.0.0.1'
 
 #
 # Editor
@@ -93,6 +108,12 @@ zstyle ':prezto:module:git:status:ignore' submodules 'dirty'
 #
 # History Substring Search
 #
+
+# To enable case-sensitivity for this module only
+# zstyle ':prezto:module:history-substring-search' case-sensitive 'yes'
+
+# To enable highlighting for this module only
+# zstyle ':prezto:module:history-substring-search' color 'yes'
 
 # Set the query found color.
 # zstyle ':prezto:module:history-substring-search:color' found ''
@@ -146,6 +167,11 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 # Automatically initialize virtualenvwrapper if pre-requisites are met.
 # zstyle ':prezto:module:python:virtualenv' initialize 'yes'
 
+# To display the name of the current virtual enviroment in a prompt, define the
+# following style in the prompt_name_setup function.
+# # %v - virtualenv name.
+# zstyle ':prezto:module:python:info:virtualenv' format 'virtualenv:%v'
+
 #
 # Ruby
 #
@@ -162,7 +188,6 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:screen:auto-start' remote 'yes'
-zstyle ':prezto:module:screen:auto-start' remote 'yes'
 
 #
 # SSH
@@ -171,9 +196,15 @@ zstyle ':prezto:module:screen:auto-start' remote 'yes'
 # Set the SSH identities to load into the agent.
 # zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_github'
 
+# Using keychain utility instead of ssh module
+
 #
 # Syntax Highlighting
-#
+
+
+# To enable highlighting for this module only
+# zstyle ':prezto:module:syntax-highlighting' color 'yes'
+
 
 # Set syntax highlighters.
 # By default, only the main highlighter is enabled.
@@ -184,6 +215,13 @@ zstyle ':prezto:module:screen:auto-start' remote 'yes'
 #   'line' \
 #   'cursor' \
 #   'root'
+zstyle ':prezto:module:syntax-highlighting' highlighters \
+  'main' \
+  'brackets' \
+  'line' \
+  'cursor' \
+  'root'
+
 #
 # Set syntax highlighting styles.
 # zstyle ':prezto:module:syntax-highlighting' styles \
@@ -226,6 +264,7 @@ zstyle ':prezto:module:terminal' auto-title 'yes'
 
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
 # Set the default session name:
 # zstyle ':prezto:module:tmux:session' name 'YOUR DEFAULT SESSION NAME'
