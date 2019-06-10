@@ -43,3 +43,12 @@ bindkey '\e^?' slash-backward-kill-word
 insert-datestamp() { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
 zle -N insert-datestamp
 bindkey '^Ed' insert-datestamp
+
+
+# https://hub.github.com/
+# brew install hub || sudo snap install hub --classic
+if [[ -x /usr/local/bin/hub || -x /snap/bin/hub ]]
+then
+    # eval "$(hub alias -s)"
+	alias git=hub
+fi
