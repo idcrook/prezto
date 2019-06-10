@@ -53,9 +53,10 @@ zstyle ':prezto:load' pmodule \
 # 'syntax-highlighting' must be loaded before the history-substring-search
 # module.
 
-# For completion to work, 'fasd' must be loaded after the completion module.
+# 'completion' must be loaded **after** the *utility* module.
 
-
+# For 'fasd' completion to work, 'fasd' must be loaded after the completion
+# module.
 
 # 'osx' is safe on Linux -- checks for Darwin
 # 'dpkg' is safe on macOS -- checks for dpkg and apt-get
