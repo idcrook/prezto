@@ -25,3 +25,21 @@ source ~/.purepower
 # completions on macOS:
 # MAIN: /usr/local/share/zsh/site-functions
 # other: /usr/local/opt/curl/share/zsh/site-functions
+
+# https://github.com/mika/zsh-pony#remove-last-part-from-directory-name
+# Remove last part from directory name
+slash-backward-kill-word() {
+    local WORDCHARS="${WORDCHARS:s@/@}"
+    zle backward-kill-word
+}
+zle -N slash-backward-kill-word
+
+# bind to <esc>-<backspace>
+bindkey '\e^?' slash-backward-kill-word
+
+
+# https://github.com/mika/zsh-pony#insert-a-timestamp-on-the-command-line-yyyy-mm-dd
+# Insert a Date timestamp on the command line (yyyy-mm-dd)
+insert-datestamp() { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
+zle -N insert-datestamp
+bindkey '^Ed' insert-datestamp
