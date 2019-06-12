@@ -6,6 +6,12 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# for powerlevel10k config -
+# https://github.com/romkatv/powerlevel10k/blob/master/README.md#configuration
+[[ $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
+source ~/.purepower
+# handy workaround if terminal can't handle: PURE_POWER_MODE=portable exec zsh
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -13,11 +19,6 @@ fi
 
 # Customize to your needs.
 
-
-# for powerlevel10k
-# handy workaround if terminal can't handle: PURE_POWER_MODE=portable exec zsh
-[[ $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
-source ~/.purepower
 
 # # Use emacs keybindings even if our EDITOR is set to vi
 # bindkey -e
