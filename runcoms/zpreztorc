@@ -38,7 +38,6 @@ zstyle ':prezto:load' pmodule \
   'osx' \
   'homebrew' \
   'python' \
-  'ssh' \
   'tmux' \
   'spectrum' \
   'utility' \
@@ -47,6 +46,8 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'history-substring-search' \
   'prompt'
+
+#   'ssh' \
 
 
 # 'syntax-highlighting' should be loaded before the prompt module.  if it's
@@ -196,10 +197,9 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 
 # Set the SSH identities to load into the agent.
 # zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_github'
-zstyle ':prezto:module:ssh:load' identities 'id_rsa'
+#zstyle ':prezto:module:ssh:load' identities 'id_rsa'
 
-
-# Use keychain utility instead of ssh module?
+# Use keychain utility instead of ssh module
 
 #
 # Syntax Highlighting

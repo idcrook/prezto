@@ -45,7 +45,6 @@ insert-datestamp() { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
 zle -N insert-datestamp
 bindkey '^Ed' insert-datestamp
 
-
 # completions on macOS:
 # MAIN: /usr/local/share/zsh/site-functions
 # other: /usr/local/opt/curl/share/zsh/site-functions
@@ -67,4 +66,28 @@ if [[ -x /usr/local/bin/hub || -x /snap/bin/hub ]]
 then
     # eval "$(hub alias -s)"
 	alias git=hub
+fi
+
+# Set platform-specific enVARIABLES, PATHs
+if [[ "$OSTYPE" == darwin* ]]
+then
+    # http://www.funtoo.org/Keychain
+    # brew install keychain -> /usr/local/bin/keychain
+    # NOTE: The --inherit any option causes keychain to inherit any
+    #     ssh key passphrases stored in your Apple MacOS Keychain. If
+    #     you would prefer for this to not happen, then this option
+    #     can be omitted.
+    eval "$(keychain --eval --agents ssh --inherit any id_rsa)"
+fi
+
+# Set platform-specific enVARIABLES, PATHs
+if [[ "$OSTYPE" == linux* ]]
+then
+    # http://www.funtoo.org/Keychain
+    # sudo apt install keychain
+    if [ -x /usr/bin/keychain ]; then
+        keychainpath=/usr/bin/keychain
+        eval "$($keychainpath --eval --agents ssh --inherit any id_rsa)"
+        unset keychainpath
+    fi
 fi
