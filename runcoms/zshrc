@@ -65,27 +65,3 @@ if [[ -d ${ZDOTDIR:-$HOME}/.zsh/completions.d ]] ; then
     fpath=(${ZDOTDIR:-$HOME}/.zsh/completions.d $fpath)
     compinit -i -C
 fi
-
-# Set platform-specific enVARIABLES, PATHs
-if [[ "$OSTYPE" == darwin* ]]
-then
-    # http://www.funtoo.org/Keychain
-    # brew install keychain -> /usr/local/bin/keychain
-    # NOTE: The --inherit any option causes keychain to inherit any
-    #     ssh key passphrases stored in your Apple MacOS Keychain. If
-    #     you would prefer for this to not happen, then this option
-    #     can be omitted.
-    eval "$(keychain --eval --agents ssh --inherit any id_rsa)"
-fi
-
-# Set platform-specific enVARIABLES, PATHs
-if [[ "$OSTYPE" == linux* ]]
-then
-    # http://www.funtoo.org/Keychain
-    # sudo apt install keychain
-    if [ -x /usr/bin/keychain ]; then
-        keychainpath=/usr/bin/keychain
-        eval "$($keychainpath --eval --agents ssh --inherit any id_rsa)"
-        unset keychainpath
-    fi
-fi
