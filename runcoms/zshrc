@@ -17,6 +17,12 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# custom aliases in ~/.zsh/aliases.zsh
+if [[ -f ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh ]] ; then
+    source ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh
+fi
+
+
 # Customize to your needs.
 # Turn off all beeps
 #unsetopt BEEP
@@ -54,18 +60,10 @@ bindkey '^Ed' insert-datestamp
 #   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 # fi
 
-# custom completions in ~/.zsh/completions
-if [[ -d ${ZDOTDIR:-$HOME}/.zsh/completions ]] ; then
-    fpath=(${ZDOTDIR:-$HOME}/.zsh/completions $fpath)
+# custom completions in ~/.zsh/completions.d
+if [[ -d ${ZDOTDIR:-$HOME}/.zsh/completions.d ]] ; then
+    fpath=(${ZDOTDIR:-$HOME}/.zsh/completions.d $fpath)
     compinit -i -C
-fi
-
-# https://hub.github.com/
-# brew install hub || sudo snap install hub --classic
-if [[ -x /usr/local/bin/hub || -x /snap/bin/hub ]]
-then
-    # eval "$(hub alias -s)"
-	alias git=hub
 fi
 
 # Set platform-specific enVARIABLES, PATHs
