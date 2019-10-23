@@ -126,3 +126,14 @@ then
         unset keychainpath
     fi
 fi
+
+# move envariable setting to zshenv
+case $OSTYPE in
+    darwin*)
+        export EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+        alias emacsclient=$EMACSCLIENT
+        ;;
+    *)
+        export EMACSCLIENT=emacsclient
+        ;;
+esac
