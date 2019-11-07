@@ -113,7 +113,7 @@ then
     #     ssh key passphrases stored in your Apple MacOS Keychain. If
     #     you would prefer for this to not happen, then this option
     #     can be omitted.
-    eval "$(keychain --eval --agents ssh --inherit any id_rsa)"
+    eval "$(keychain --quick --quiet --eval --agents ssh --inherit any id_rsa)"
 fi
 
 if [[ "$OSTYPE" == linux* ]]
