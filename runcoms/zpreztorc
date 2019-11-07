@@ -38,6 +38,7 @@ zstyle ':prezto:load' pmodule \
   'osx' \
   'homebrew' \
   'python' \
+  'ruby' \
   'tmux' \
   'spectrum' \
   'utility' \

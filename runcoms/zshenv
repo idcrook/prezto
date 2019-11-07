@@ -81,6 +81,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
         modpath -q /usr/local/opt/go/libexec/bin
     fi
 
+    # rbenv - Homebrew
+    # handled in zprezto ruby pmodule
 fi
 
 # TODO: add Linux and msys2 support as necessary
