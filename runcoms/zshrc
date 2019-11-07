@@ -36,8 +36,8 @@ unsetopt LIST_BEEP
 # https://github.com/mika/zsh-pony#remove-last-part-from-directory-name
 # Remove last part from directory name
 slash-backward-kill-word() {
-    local WORDCHARS="${WORDCHARS:s@/@}"
-    zle backward-kill-word
+  local WORDCHARS="${WORDCHARS:s@/@}"
+  zle backward-kill-word
 }
 zle -N slash-backward-kill-word
 
@@ -62,6 +62,11 @@ bindkey '^Ed' insert-datestamp
 
 # custom completions in ~/.zsh/completions.d
 if [[ -d ${ZDOTDIR:-$HOME}/.zsh/completions.d ]] ; then
-    fpath=(${ZDOTDIR:-$HOME}/.zsh/completions.d $fpath)
-    compinit -i -C
+  fpath=(${ZDOTDIR:-$HOME}/.zsh/completions.d $fpath)
+  compinit -i -C
+fi
+
+# other completions in ~/.zsh/completions.zsh
+if [[ -f ${ZDOTDIR:-$HOME}/.zsh/completions.zsh ]] ; then
+  source ${ZDOTDIR:-$HOME}/.zsh/completions.zsh
 fi
