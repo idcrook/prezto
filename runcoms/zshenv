@@ -83,7 +83,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
 
 fi
 
-# TODO: add Linux and msys2 support as necessary
+# add Linux and msys2 support as necessary
 
 
 # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
