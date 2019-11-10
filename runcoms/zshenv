@@ -124,8 +124,15 @@ then
     # sudo apt install keychain
     if [ -x /usr/bin/keychain ]; then
         keychainpath=/usr/bin/keychain
-        eval "$($keychainpath --eval --agents ssh --inherit any id_rsa)"
+        eval "$($keychainpath --quiet --eval --agents ssh --inherit any id_rsa)"
         unset keychainpath
+    fi
+fi
+
+if [[ "$OSTYPE" == linux* ]]
+then
+    if [[ -d /snap/bin ]] ; then
+        modpath -q /snap/bin
     fi
 fi
 
