@@ -85,7 +85,7 @@ if [[ "$OSTYPE" == darwin* ]]; then
     # handled in zprezto ruby pmodule
 fi
 
-# TODO: add Linux and msys2 support as necessary
+# add Linux and msys2 support as necessary
 
 
 # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
@@ -115,7 +115,7 @@ then
     #     ssh key passphrases stored in your Apple MacOS Keychain. If
     #     you would prefer for this to not happen, then this option
     #     can be omitted.
-    eval "$(keychain --quick --quiet --eval --agents ssh --inherit any id_rsa)"
+    eval "$(keychain --eval --quiet --agents ssh --inherit any id_rsa)"
 fi
 
 if [[ "$OSTYPE" == linux* ]]
