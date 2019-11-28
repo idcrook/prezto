@@ -63,7 +63,9 @@ bindkey '^Ed' insert-datestamp
 # custom completions in ~/.zsh/completions.d
 if [[ -d ${ZDOTDIR:-$HOME}/.zsh/completions.d ]] ; then
   fpath=(${ZDOTDIR:-$HOME}/.zsh/completions.d $fpath)
-  compinit -i -C
+  # https://github.com/github/hub/tree/master/etc#zsh
+  autoload -U compinit && compinit
+  #compinit -i -C
 fi
 
 # other completions in ~/.zsh/completions.zsh
