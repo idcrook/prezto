@@ -6,6 +6,9 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# simple plain prompt for emacs tramp sessions
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 # for powerlevel10k config -
 # https://github.com/romkatv/powerlevel10k/blob/master/README.md#configuration
 [[ $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}

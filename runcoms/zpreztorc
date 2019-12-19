@@ -199,8 +199,9 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 # Set the SSH identities to load into the agent.
 # zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_github'
 #zstyle ':prezto:module:ssh:load' identities 'id_rsa'
+zstyle ':prezto:module:ssh:load' identities 'id_rsa'
 
-# Use keychain utility instead of ssh module
+# Stop using keychain utility instead of ssh module
 
 #
 # Syntax Highlighting
