@@ -46,9 +46,8 @@ zstyle ':prezto:load' pmodule \
   'fasd' \
   'syntax-highlighting' \
   'history-substring-search' \
-  'prompt'
-
-#   'ssh' \
+  'prompt' \
+  'ssh'
 
 
 # 'syntax-highlighting' should be loaded before the prompt module.  if it's
