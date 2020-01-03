@@ -87,6 +87,13 @@ fi
 
 # add Linux and msys2 support as necessary
 
+# add snap packages before use (golang, hub, ...)
+if [[ "$OSTYPE" == linux* ]]
+then
+    if [[ -d /snap/bin ]] ; then
+        modpath -q /snap/bin
+    fi
+fi
 
 # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
 # mkdir -p ~/go/src/github.com
@@ -129,13 +136,6 @@ fi
 #         unset keychainpath
 #    fi
 # fi
-
-if [[ "$OSTYPE" == linux* ]]
-then
-    if [[ -d /snap/bin ]] ; then
-        modpath -q /snap/bin
-    fi
-fi
 
 # move envariable setting to zshenv
 case $OSTYPE in
