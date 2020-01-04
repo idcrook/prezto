@@ -147,3 +147,10 @@ case $OSTYPE in
         export EMACSCLIENT=emacsclient
         ;;
 esac
+
+# per host environment variables
+nodename=$(uname -n)
+if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
+    # shellcheck source=/dev/null
+    source "${shell_config}"/env.$nodename.sh
+fi
