@@ -42,6 +42,7 @@ zstyle ':prezto:load' pmodule \
   'homebrew' \
   'python' \
   'ruby' \
+  'rust' \
   'tmux' \
   'spectrum' \
   'utility' \
