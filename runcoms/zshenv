@@ -69,6 +69,8 @@ if [[ "$OSTYPE" == darwin* ]]; then
         modpath -q "${HOME}"/bin/macos
     fi
 
+    # See ~/.config/shell/path.zsh.inc for others
+
     # python3 - Homebrew
     if [ -d /usr/local/opt/python/libexec/bin ] ; then
         modpath -q -f -d /usr/local/opt/python/libexec/bin
