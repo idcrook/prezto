@@ -106,6 +106,13 @@ if [[ -d $(go env GOPATH) ]] ; then
     modpath -q $(go env GOPATH)/bin
 fi
 
+# # https://github.com/nvm-sh/nvm#installing-and-updating
+# # .zprezto has built-in support for nvm via node module, so do not need
+# # See node module:  https://github.com/sorin-ionescu/prezto/tree/master/modules/node
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# export NVM_DIR="$( printf %s "${HOME}/.nvm" )"
+
 # perl local modules
 # https://metacpan.org/pod/local::lib
 if [ -d $HOME/perl5/lib/perl5 ] ; then
