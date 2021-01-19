@@ -29,12 +29,27 @@ fi
 #
 # Editors
 #
-# create new frame in windowing env
-if (( $+commands[vim] )) ; then
-    export EDITOR='emacsclient -a vim --create-frame'
-else
-    export EDITOR='emacsclient -a vi --create-frame'
-fi
+
+case $OSTYPE in
+  darwin*)
+    if [ -x "${HOME}/bin/macos/Emacs.sh" ] ; then
+      use_editor="${HOME}/bin/macos/Emacs.sh"
+    else
+      use_editor="emacsclient -c"
+    fi
+    export EDITOR="${use_editor}"
+    ;;
+  *)
+    # create new frame in windowing env
+    if (( $+commands[vim] )) ; then
+      export EDITOR="${EMACSCLIENT} -a vim --create-frame"
+    else
+      export EDITOR="${EMACSCLIENT} -a vi --create-frame"
+    fi
+    ;;
+esac
+
+
 export VISUAL=$EDITOR
 export PAGER='less'
 
