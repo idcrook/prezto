@@ -39,16 +39,10 @@ zstyle ':prezto:load' pmodule \
   'directory' \
   'git' \
   'osx' \
-  'homebrew' \
-  'node' \
-  'python' \
-  'ruby' \
-  'rust' \
   'tmux' \
   'spectrum' \
   'utility' \
   'completion' \
-  'fasd' \
   'syntax-highlighting' \
   'history-substring-search' \
   'prompt' \
@@ -64,9 +58,18 @@ zstyle ':prezto:load' pmodule \
 
 # For 'fasd' completion to work, 'fasd' must be loaded after the completion
 # module.
+#   'fasd' \
 
 # 'osx' is safe on Linux -- checks for Darwin
+#   'homebrew' \
+
 # 'dpkg' is safe on macOS -- checks for dpkg and apt-get
+
+#  'ruby' \
+#  'python' \
+#  'rust' \
+#  'node' \
+
 
 #
 # Autosuggestions
@@ -163,6 +166,9 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 # Set the prompt to display the return code along with an indicator for non-zero
 # return codes. This is not supported by all prompts.
 # zstyle ':prezto:module:prompt' show-return-val 'yes'
+
+# # %v - Node.js version.
+# zstyle ':prezto:module:node:info:version' format 'version:%v'
 
 #
 # Python
@@ -286,3 +292,4 @@ zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
+zstyle ':prezto:module:utility' safe-ops 'no'
