@@ -40,101 +40,54 @@ fi
 
 # Path ------------------------------------------------------------
 
-# DO NOT USE ON MACOS! Breaks LLDB in Xcode
-# very handy utility
-modpath () {
-    # shellcheck disable=2124
-    modpathargs=${@+"$@"};
-    # shellcheck source=.config/shell/modpath.sh
-    source "${shell_config}/modpath.sh";
-    unset modpathargs
-}
+# # DO NOT USE ON MACOS! Breaks LLDB in Xcode
+# # very handy utility
+# modpath () {
+#     # shellcheck disable=2124
+#     modpathargs=${@+"$@"};
+#     # shellcheck source=.config/shell/modpath.sh
+#     source "${shell_config}/modpath.sh";
+#     unset modpathargs
+# }
 
-# end of PATH: path+=/new/path
-# front of path: path=(~/foo "$path[@]")
+# keep these lines here as they are anchored on macOS
+path=(/usr/local/sbin $path)
+path=(/usr/local/bin $path)
 
-#path+=$HOME/bin
-path=($HOME/bin "$path[@]")
-echo $path
+# echo $(systemd-path user-binaries)
+path=("$HOME"/bin $path)
+path=("$HOME"/.local/bin $path)
 
-# case :$PATH: # notice colons around the value
-#   in *:$HOME/bin:*) ;; # do nothing, it's there
-# #     *) echo "/usr/local/bin not in $PATH" >&2;;
-#      *) PATH=$PATH:$HOME/bin;;
-# esac
-
-# modpath -q -b /usr/bin        /usr/local/bin
-# modpath -q -b /usr/local/bin  /usr/local/sbin
-# modpath -q -b /usr/local/bin  "$HOME"/bin
-
-# # echo $(systemd-path user-binaries)
-# modpath -q -b "$HOME"/bin     "$HOME"/.local/bin
-
-# # more PATH config
-# if [ -f ${shell_config}/path.zsh.inc ] ; then
-#     # shellcheck source=/dev/null
-#     source "${shell_config}"/path.zsh.inc
-# fi
-
-# # macOS
-# if [[ "$OSTYPE" == darwin* ]]; then
-
-#     if [ -d  "${HOME}"/bin/macos ] ; then
-#         modpath -q "${HOME}"/bin/macos
-#     fi
-
-#     # See ~/.config/shell/path.zsh.inc for others
-
-#     # python3 - Homebrew
-#     if [ -d /usr/local/opt/python/libexec/bin ] ; then
-#         modpath -q -f -d /usr/local/opt/python/libexec/bin
-#         modpath -q -b /usr/local/bin /usr/local/opt/python/libexec/bin
-#         # echo $PATH
-#     fi
-
-#     # golang - Homebrew
-#     if [ -d /usr/local/opt/go/libexec/bin ] ; then
-#         modpath -q /usr/local/opt/go/libexec/bin
-#     fi
-
-#     # rbenv - Homebrew
-#     # handled in zprezto ruby pmodule
-# fi
-
-# add Linux and msys2 support as necessary
-
-# add snap packages before use (golang, hub, ...)
-if [[ "$OSTYPE" == linux* ]]
-then
-    if [[ -d /snap/bin ]] ; then
-        modpath -q /snap/bin
-    fi
+# more PATH config
+if [ -f ${shell_config}/path.zsh.inc ] ; then
+    # shellcheck source=/dev/null
+    source "${shell_config}"/path.zsh.inc
 fi
 
-# # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
-# # mkdir -p ~/go/src/github.com
-# # mkdir -p ~/go/bin
-# if [[ -d $(go env GOPATH) ]] ; then
-#     # export GOPATH=$HOME/go
-#     export GOPATH=$(go env GOPATH)
-#     modpath -q $(go env GOPATH)/bin
-# fi
+# https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
+# mkdir -p ~/go/src/github.com
+# mkdir -p ~/go/bin
+if [[ -d $(go env GOPATH) ]] ; then
+    # export GOPATH=$HOME/go
+    export GOPATH=$(go env GOPATH)
+    path+=$(go env GOPATH)/bin
+fi
 
-# # https://github.com/nvm-sh/nvm#installing-and-updating
-# # .zprezto has built-in support for nvm via node module, so do not need
-# # See node module:  https://github.com/sorin-ionescu/prezto/tree/master/modules/node
-# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-# export NVM_DIR="$( printf %s "${HOME}/.nvm" )"
+# https://github.com/nvm-sh/nvm#installing-and-updating
+# .zprezto has built-in support for nvm via node module, so do not need
+# See node module:  https://github.com/sorin-ionescu/prezto/tree/master/modules/node
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+export NVM_DIR="$( printf %s "${HOME}/.nvm" )"
 
-# # perl local modules
-# # https://metacpan.org/pod/local::lib
-# if [ -d $HOME/perl5/lib/perl5 ] ; then
-#     # sets PERL5LIB and others
-#     eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
-#     # should warn that it is already in PATH
-#     modpath -q $HOME/perl5/bin
-# fi
+# perl local modules
+# https://metacpan.org/pod/local::lib
+if [ -d $HOME/perl5/lib/perl5 ] ; then
+    # sets PERL5LIB and others
+    eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+    # should warn that it is already in PATH
+    path+=$HOME/perl5/bin
+fi
 
 # # Set platform-specific enVARIABLES, PATHs
 # if [[ "$OSTYPE" == darwin* ]]
@@ -148,17 +101,17 @@ fi
 #    eval "$(keychain --eval --quiet --agents ssh --inherit any id_rsa)"
 # fi
 
-# if [[ "$OSTYPE" == linux* ]]
-# then
-#     # http://www.funtoo.org/Keychain
-#     # sudo apt install keychain
-#     if [ -x /usr/bin/keychain ]; then
-#         keychainpath=/usr/bin/keychain
-#         #eval "$($keychainpath --quiet --eval --agents ssh --inherit any id_rsa)"
-#         eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
-#         unset keychainpath
-#    fi
-# fi
+if [[ "$OSTYPE" == linux* ]]
+then
+    # http://www.funtoo.org/Keychain
+    # sudo apt install keychain
+    if [ -x /usr/bin/keychain ]; then
+        keychainpath=/usr/bin/keychain
+        #eval "$($keychainpath --quiet --eval --agents ssh --inherit any id_rsa)"
+        eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
+        unset keychainpath
+   fi
+fi
 
 # move envariable setting to zshenv
 case $OSTYPE in
