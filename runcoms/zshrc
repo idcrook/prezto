@@ -18,12 +18,6 @@ fi
 # simple plain prompt for emacs tramp sessions
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
-# for powerlevel10k config -
-# https://github.com/romkatv/powerlevel10k/blob/master/README.md#configuration
-# [[ $TERM == xterm* ]] || : ${PURE_POWER_MODE:=portable}
-# source ~/.purepower
-# handy workaround if terminal can't handle: PURE_POWER_MODE=portable exec zsh
-
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -85,6 +79,15 @@ fi
 if [[ -f ${ZDOTDIR:-$HOME}/.zsh/completions.zsh ]] ; then
   source ${ZDOTDIR:-$HOME}/.zsh/completions.zsh
 fi
+
+# https://iterm2.com/documentation-shell-integration.html
+# only source if we are on macOS, for now
+if [[ "$(uname -s)" == 'Darwin' ]] ; then
+  # handles xterm-256color tmux-256color
+  # shellcheck source=/dev/null
+  [[ "$TERM" == *-256color ]] && test -e "${shell_config}/.iterm2_shell_integration.zsh" && source "${shell_config}/.iterm2_shell_integration.zsh"
+fi
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
