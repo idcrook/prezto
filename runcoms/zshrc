@@ -1,12 +1,4 @@
 # -*- mode: sh; eval: (sh-set-shell "zsh") -*-
-ZSH_DISABLE_COMPFIX="true"
-
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 #
 # Executes commands at the start of an interactive session.
@@ -18,6 +10,18 @@ fi
 # simple plain prompt for emacs tramp sessions
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# add any other locals to FPATH before running zprezto init (compinit caching)
+if [[ -f ${ZDOTDIR:-$HOME}/.zsh/completions.zsh ]] ; then
+  source ${ZDOTDIR:-$HOME}/.zsh/completions.zsh
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -27,7 +31,6 @@ fi
 if [[ -f ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh ]] ; then
     source ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh
 fi
-
 
 # Customize to your needs.
 # Turn off all beeps
@@ -57,28 +60,6 @@ insert-datestamp() { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
 zle -N insert-datestamp
 bindkey '^Ed' insert-datestamp
 
-# completions on macOS:
-# MAIN: /usr/local/share/zsh/site-functions
-# other: /usr/local/opt/curl/share/zsh/site-functions
-
-# # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
-# if type brew &>/dev/null; then
-#   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-# fi
-
-# custom completions in ~/.zsh/completions.d
-if [[ -d ${ZDOTDIR:-$HOME}/.zsh/completions.d ]] ; then
-  fpath=(${ZDOTDIR:-$HOME}/.zsh/completions.d $fpath)
-  # https://github.com/github/hub/tree/master/etc#zsh
-  #autoload -U compinit && compinit
-  autoload -U compinit && compinit -C
-  #compinit -i -C
-fi
-
-# other completions in ~/.zsh/completions.zsh
-if [[ -f ${ZDOTDIR:-$HOME}/.zsh/completions.zsh ]] ; then
-  source ${ZDOTDIR:-$HOME}/.zsh/completions.zsh
-fi
 
 # https://iterm2.com/documentation-shell-integration.html
 # only source if we are on macOS, for now
