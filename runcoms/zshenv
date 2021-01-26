@@ -40,19 +40,13 @@ fi
 
 # Path ------------------------------------------------------------
 
-# # DO NOT USE ON MACOS! Breaks LLDB in Xcode
-# # very handy utility
-# modpath () {
-#     # shellcheck disable=2124
-#     modpathargs=${@+"$@"};
-#     # shellcheck source=.config/shell/modpath.sh
-#     source "${shell_config}/modpath.sh";
-#     unset modpathargs
-# }
-
-# keep these lines here as they are anchored on macOS
-path=(/usr/local/sbin $path)
-path=(/usr/local/bin $path)
+# /etc/zprofile is sourced after ~/.zshenv for interactive shells
+# on macOS these two get added to front of path there
+# Set the list of directories that Zsh searches for programs.
+path=(
+  /usr/local/{bin,sbin}
+  $path
+)
 
 # echo $(systemd-path user-binaries)
 path=("$HOME"/bin $path)
@@ -65,8 +59,8 @@ if [ -f ${shell_config}/path.zsh.inc ] ; then
 fi
 
 # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
-# mkdir -p ~/go/src/github.com
-# mkdir -p ~/go/bin
+# mkdir -p ~/go/src/github.com ; mkdir -p ~/go/bin
+# NOTE: `go` executable must be in PATH
 if [[ -d $(go env GOPATH) ]] ; then
     # export GOPATH=$HOME/go
     export GOPATH=$(go env GOPATH)
@@ -76,9 +70,9 @@ fi
 # https://github.com/nvm-sh/nvm#installing-and-updating
 # .zprezto has built-in support for nvm via node module, so do not need
 # See node module:  https://github.com/sorin-ionescu/prezto/tree/master/modules/node
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-export NVM_DIR="$( printf %s "${HOME}/.nvm" )"
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# export NVM_DIR="$( printf %s "${HOME}/.nvm" )"
 
 # perl local modules
 # https://metacpan.org/pod/local::lib

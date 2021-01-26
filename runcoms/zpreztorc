@@ -39,6 +39,8 @@ zstyle ':prezto:load' pmodule \
   'directory' \
   'git' \
   'osx' \
+  'node' \
+  'python' \
   'tmux' \
   'spectrum' \
   'utility' \
@@ -53,6 +55,10 @@ zstyle ':prezto:load' pmodule \
 # used in conjunction with the history-substring-search module,
 # 'syntax-highlighting' must be loaded before the history-substring-search
 # module.
+
+# 'autosuggestions' must be loaded after the syntax-highlighting module.
+# 'autosuggestions'  must be loaded after the history-substring-search module.
+#  'autosuggestions' \
 
 # 'completion' must be loaded **after** the *utility* module.
 
@@ -89,6 +95,15 @@ zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
   '0.0.0.0' '127.0.0.1'
 
 #
+# Directory
+#
+#  unsetopt CLOBBER            # Do not overwrite existing files with > and >>.
+
+#
+# Docker
+#
+
+#
 # Editor
 #
 
@@ -99,7 +114,7 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 # zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Allow the zsh prompt context to be shown.
-#zstyle ':prezto:module:editor' ps-context 'yes'
+# zstyle ':prezto:module:editor' ps-context 'yes'
 
 #
 # Git
@@ -169,6 +184,14 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 
 # # %v - Node.js version.
 # zstyle ':prezto:module:node:info:version' format 'version:%v'
+
+#
+# Perl
+#
+
+# https://github.com/sorin-ionescu/prezto/tree/master/modules/perl
+# https://github.com/tokuhirom/plenv
+
 
 #
 # Python
@@ -287,6 +310,9 @@ zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 #
 # Utility
 #
+
+# color ls, diff
+# GNU coreutils ls gls
 
 # Enabled safe options. This aliases cp, ln, mv and rm so that they prompt
 # before deleting or overwriting files. Set to 'no' to disable this safer
