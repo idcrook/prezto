@@ -61,6 +61,10 @@ fi
 # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
 # mkdir -p ~/go/src/github.com ; mkdir -p ~/go/bin
 # NOTE: `go` executable must be in PATH
+if [[ -d /usr/local/go/bin ]] ; then
+    path+=/usr/local/go/bin 
+fi
+
 if [[ -d $(go env GOPATH) ]] ; then
     # export GOPATH=$HOME/go
     export GOPATH=$(go env GOPATH)
