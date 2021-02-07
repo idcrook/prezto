@@ -32,12 +32,6 @@ if [[ -f ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh ]] ; then
     source ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh
 fi
 
-# on macOS, homebrew version is keg-only
-if [   -d /usr/local/opt/curl/bin ] ; then
-  path=(/usr/local/opt/curl/bin $path)
-fi
-
-
 # Customize to your needs.
 # Turn off all beeps
 #unsetopt BEEP
