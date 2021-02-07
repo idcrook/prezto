@@ -41,71 +41,8 @@ fi
 # Path ------------------------------------------------------------
 
 # /etc/zprofile is sourced after ~/.zshenv for interactive shells
-# on macOS these two get added to front of path there
-# Set the list of directories that Zsh searches for programs.
-path=(
-  /usr/local/{bin,sbin}
-  $path
-)
 
-# echo $(systemd-path user-binaries)
-path=("$HOME"/bin $path)
-path=("$HOME"/.local/bin $path)
-
-# more PATH config
-if [ -f ${shell_config}/path.zsh.inc ] ; then
-    # shellcheck source=/dev/null
-    source "${shell_config}"/path.zsh.inc
-fi
-
-# https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
-# mkdir -p ~/go/src/github.com ; mkdir -p ~/go/bin
-# NOTE: `go` executable must be in PATH
-if [[ -d $(go env GOPATH) ]] ; then
-    # export GOPATH=$HOME/go
-    export GOPATH=$(go env GOPATH)
-    path+=$(go env GOPATH)/bin
-fi
-
-# https://github.com/nvm-sh/nvm#installing-and-updating
-# .zprezto has built-in support for nvm via node module, so do not need
-# See node module:  https://github.com/sorin-ionescu/prezto/tree/master/modules/node
-# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-# export NVM_DIR="$( printf %s "${HOME}/.nvm" )"
-
-# perl local modules
-# https://metacpan.org/pod/local::lib
-if [ -d $HOME/perl5/lib/perl5 ] ; then
-    # sets PERL5LIB and others
-    eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
-    # should warn that it is already in PATH
-    path+=$HOME/perl5/bin
-fi
-
-# # Set platform-specific enVARIABLES, PATHs
-# if [[ "$OSTYPE" == darwin* ]]
-# then
-#     # http://www.funtoo.org/Keychain
-#     # brew install keychain -> /usr/local/bin/keychain
-#     # NOTE: The --inherit any option causes keychain to inherit any
-#     #     ssh key passphrases stored in your Apple MacOS Keychain. If
-#     #     you would prefer for this to not happen, then this option
-#     #     can be omitted.
-#    eval "$(keychain --eval --quiet --agents ssh --inherit any id_rsa)"
-# fi
-
-if [[ "$OSTYPE" == linux* ]]
-then
-    # http://www.funtoo.org/Keychain
-    # sudo apt install keychain
-    if [ -x /usr/bin/keychain ]; then
-        keychainpath=/usr/bin/keychain
-        #eval "$($keychainpath --quiet --eval --agents ssh --inherit any id_rsa)"
-        eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
-        unset keychainpath
-   fi
-fi
+# PATH handling moved to zprofile
 
 # move envariable setting to zshenv
 case $OSTYPE in
@@ -117,10 +54,3 @@ case $OSTYPE in
         export EMACSCLIENT=emacsclient
         ;;
 esac
-
-# per host environment variables
-nodename=$(uname -n)
-if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
-    # shellcheck source=/dev/null
-    source "${shell_config}"/env.$nodename.sh
-fi
