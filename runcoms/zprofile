@@ -87,15 +87,18 @@ arch_name="$(uname -m)"
 # Diagnostics for runtime environment
 # https://cutecoder.org/software/detecting-apple-silicon-shell-script/
 if [ "${arch_name}" = "x86_64" ]; then
+  if [[ ! "$(uname -s)" == "Linux" ]] ; then
+    # Linux: sysctl: invalid option -- 'i'
     if [ "$(sysctl -in sysctl.proc_translated)" = "1" ]; then
-        echo "Running on Rosetta 2"
-    else
-        echo "Running on native Intel"
+      echo "Running on Rosetta 2"
     fi
+  else
+    echo "Running on native Intel"
+  fi
 elif [ "${arch_name}" = "arm64" ]; then
-    echo "Running on ARM"
+  echo "Running on ARM"
 else
-    echo "Unknown architecture: ${arch_name}"
+  echo "Unknown architecture: ${arch_name}"
 fi
 
 
