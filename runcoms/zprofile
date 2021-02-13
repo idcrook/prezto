@@ -82,38 +82,84 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
 fi
 
 
-arch_name="$(uname -m)"
-os_name="$(uname -s)"
+# http://zsh.sourceforge.net/Doc/Release/Parameters.html#Parameters-Set-By-The-Shell
+#
+# - $CPUTYPE (run-time) ::
+#
+#   aarch64 : 64-bit Ubuntu on RasPi
+#   armv7l  : 32-bit RasPiOS on RasPi
+#   arm64   : macOS (M1 Apple Silicon)
+#   x86_64  : macOS (M1 Apple Silicon under Rosetta 2)
+#   x86_64  : Intel Linux
+#
+# - $(uname -m) :: (matches $CPUTYPE exactly)
+#
+#   aarch64 : 64-bit Ubuntu on RasPi
+#   armv7l  : 32-bit RasPiOS on RasPi
+#   arm64   : macOS (M1 Apple Silicon)
+#   x86_64  : macOS (M1 Apple Silicon under Rosetta 2)
+#   x86_64  : Intel Linux
+#
+# - $OSTYPE ::
+#
+#   linux-gnu       : 64-bit Ubuntu on RasPi
+#   linux-gnueabihf : 32-bit RasPiOS on RasPi
+#   darwin20.0      : macOS (M1 Apple Silicon)
+#   darwin20.0      : macOS (M1 Apple Silicon under Rosetta 2)
+#   linux-gnu       : Ubuntu Linux on Intel
+#
+# - $(uname -s) ::
+#
+#   Linux : 64-bit Ubuntu on RasPi
+#   Linux : 32-bit RasPiOS on RasPi
+#   Linux : macOS M1 (Apple Silicon)
+#   Darwin : macOS (M1 Apple Silicon)
+#   Darwin : macOS (M1 Apple Silicon under Rosetta 2)
+#   Linux : Intel Linux
+#
+# - $MACHTYPE (compile-time) ::
+#
+#   aarch64 : 64-bit Ubuntu on RasPi
+#   arm     : 32-bit RasPiOS on RasPi
+#   x86_64  : macOS (M1 Apple Silicon) ** $SHELL /bin/zsh
+#   x86_64  : macOS (M1 Apple Silicon under Rosetta 2)
+#   x86_64  : Intel Linux
+#
+
+arch_name="${CPUTYPE}" # same as `uname -m`
+os_name="$(uname -s)"  # similar to $OSNAME
 
 # Diagnostics for runtime environment
 # https://cutecoder.org/software/detecting-apple-silicon-shell-script/
-if [ "${arch_name}" = "x86_64" ]; then
-  if [[ "${os_name}" == "Darwin" ]] ; then
+if [[ "${os_name}" == "Darwin" ]] ; then
+  if [ "${arch_name}" = "x86_64" ]; then
     # Linux: sysctl: invalid option -- 'i'
     if [ "$(sysctl -in sysctl.proc_translated)" = "1" ]; then
-      echo "Running on Rosetta 2"
+      echo "macOS running on Rosetta 2"
     else
-      echo "Running on native Intel"
+      echo "macOS running on native Intel"
     fi
+  elif [ "${arch_name}" = "arm64" ]; then
+    echo "macOS running on ARM"
+  else
+    echo "Unknown architecture: ${arch_name}"
   fi
-elif [ "${arch_name}" = "arm64" ]; then
-  echo "Running on ARM"
-else
-  echo "Unknown architecture: ${arch_name}"
+elif [[ "${os_name}" == "Linux" ]] ; then
+    echo "Linux running on ${arch_name}"
 fi
 
 
 # Homebrew ------------------------------------------------------------
 
 # handle Apple Silicon Homebrew
-if [ "${arch_name}" = "arm64" ]; then
+if [[ "${arch_name}" == "arm64" ]] ; then
   if [ -x /opt/homebrew/bin/brew ] ; then
     eval $(/opt/homebrew/bin/brew shellenv)
   fi
 fi
 
 # handle Intel Homebrew
-if [ "${arch_name}" = "x86_64" ]; then
+if [[ "${arch_name}" == "x86_64" ]] ; then
   if [ -x /usr/local/bin/brew ] ; then
     eval $(/usr/local/bin/brew shellenv)
   fi
@@ -137,8 +183,6 @@ if [ -f ${shell_config}/path.zsh.inc ] ; then
     # shellcheck source=/dev/null
     source "${shell_config}"/path.zsh.inc
 fi
-
-
 
 # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
 # mkdir -p ~/go/src/github.com ; mkdir -p ~/go/bin
@@ -164,18 +208,6 @@ if [ -d $HOME/perl5/lib/perl5 ] ; then
     # should warn that it is already in PATH
     path+=$HOME/perl5/bin
 fi
-
-# # Set platform-specific enVARIABLES, PATHs
-# if [[ "$OSTYPE" == darwin* ]]
-# then
-#     # http://www.funtoo.org/Keychain
-#     # brew install keychain -> /usr/local/bin/keychain
-#     # NOTE: The --inherit any option causes keychain to inherit any
-#     #     ssh key passphrases stored in your Apple MacOS Keychain. If
-#     #     you would prefer for this to not happen, then this option
-#     #     can be omitted.
-#    eval "$(keychain --eval --quiet --agents ssh --inherit any id_rsa)"
-# fi
 
 if [[ "$OSTYPE" == linux* ]]
 then
