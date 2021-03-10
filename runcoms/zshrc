@@ -69,6 +69,8 @@ if [[ "$(uname -s)" == 'Darwin' ]] ; then
   [[ "$TERM" == *-256color ]] && test -e "${shell_config}/.iterm2_shell_integration.zsh" && source "${shell_config}/.iterm2_shell_integration.zsh"
 fi
 
+# Secure shellfish (iOS app) integration
+[[ ! -f ~/.shellfishrc ]] || source ~/.shellfishrc
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
