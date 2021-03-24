@@ -70,9 +70,10 @@ if [[ "$(uname -s)" == 'Darwin' ]] ; then
 fi
 
 # Secure shellfish (iOS app) integration
-if [[ $ZSH_VERSION < 5.8 ]] ; then 
-  # do not source
-else
+if [[ "$LC_TERMINAL" = "ShellFish" ]]; then
+  unalias pbcopy 2> /dev/null
+  # unalias avoids error:
+  #    .shellfishrc: defining function based on alias `pbcopy`
   [[ ! -f ~/.shellfishrc ]] || source ~/.shellfishrc
 fi
 
