@@ -112,7 +112,6 @@ fi
 #
 #   Linux : 64-bit Ubuntu on RasPi
 #   Linux : 32-bit RasPiOS on RasPi
-#   Linux : macOS M1 (Apple Silicon)
 #   Darwin : macOS (M1 Apple Silicon)
 #   Darwin : macOS (M1 Apple Silicon under Rosetta 2)
 #   Linux : Intel Linux
