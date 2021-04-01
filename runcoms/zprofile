@@ -35,11 +35,15 @@ case $OSTYPE in
     if [ -x "${HOME}/bin/macos/Emacs.sh" ] ; then
       use_editor="${HOME}/bin/macos/Emacs.sh"
     else
-      use_editor="emacsclient -c"
+      use_editor="emacsclient --create-frame"
     fi
     export EDITOR="${use_editor}"
     ;;
   *)
+    # zshenv should already set this (i.e., a "login" shell)
+    if ! [[ -v EMACSCLIENT ]]; then
+      export EMACSCLIENT="emacsclient"
+    fi
     # create new frame in windowing env
     if (( $+commands[vim] )) ; then
       export EDITOR="${EMACSCLIENT} -a vim --create-frame"
@@ -165,9 +169,10 @@ if [[ "${arch_name}" == "x86_64" ]] ; then
 fi
 
 # /etc/zprofile is sourced after ~/.zshenv for interactive shells
-# on macOS these two get added to front of path there
-# DEPRECATED: handle in homebrew shellenv and/or macOS /usr/libexec/path_helper
+
 # Set the list of directories that Zsh searches for programs.
+
+# on macOS these two get added to front of path there: /usr/libexec/path_helper
 # path=(
 #   /usr/local/{bin,sbin}
 #   $path
