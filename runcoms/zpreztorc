@@ -31,26 +31,26 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
-  'environment' \
-  'terminal' \
-  'editor' \
-  'history' \
-  'command-not-found' \
-  'directory' \
-  'git' \
-  'osx' \
-  'node' \
-  'python' \
-  'perl' \
-  'rust' \
-  'tmux' \
-  'spectrum' \
-  'utility' \
-  'completion' \
-  'syntax-highlighting' \
-  'history-substring-search' \
-  'prompt' \
-  'ssh'
+       'environment' \
+       'terminal' \
+       'editor' \
+       'history' \
+       'command-not-found' \
+       'directory' \
+       'git' \
+       'osx' \
+       'node' \
+       'python' \
+       'perl' \
+       'rust' \
+       'tmux' \
+       'spectrum' \
+       'utility' \
+       'completion' \
+       'syntax-highlighting' \
+       'history-substring-search' \
+       'prompt' \
+       'ssh'
 
 
 # 'syntax-highlighting' should be loaded before the prompt module.  if it's
@@ -74,9 +74,9 @@ zstyle ':prezto:load' pmodule \
 # 'dpkg' is safe on macOS -- checks for dpkg and apt-get
 
 #  'ruby' \
-#  'python' \
-#  'rust' \
-#  'node' \
+  #  'python' \
+  #  'rust' \
+  #  'node' \
 
 
 #
@@ -92,9 +92,9 @@ zstyle ':prezto:load' pmodule \
 
 # Set the entries to ignore in static */etc/hosts* for host completion.
 # zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
-#   '0.0.0.0' '127.0.0.1'
+  #   '0.0.0.0' '127.0.0.1'
 zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
-  '0.0.0.0' '127.0.0.1'
+       '0.0.0.0' '127.0.0.1'
 
 #
 # Directory
@@ -249,29 +249,29 @@ zstyle ':prezto:module:ssh:load' identities 'id_rsa'
 # Set syntax highlighters.
 # By default, only the main highlighter is enabled.
 # zstyle ':prezto:module:syntax-highlighting' highlighters \
-#   'main' \
-#   'brackets' \
-#   'pattern' \
-#   'line' \
-#   'cursor' \
-#   'root'
+  #   'main' \
+  #   'brackets' \
+  #   'pattern' \
+  #   'line' \
+  #   'cursor' \
+  #   'root'
 zstyle ':prezto:module:syntax-highlighting' highlighters \
-  'main' \
-  'brackets' \
-  'line' \
-  'cursor' \
-  'root'
+       'main' \
+       'brackets' \
+       'line' \
+       'cursor' \
+       'root'
 
 #
 # Set syntax highlighting styles.
 # zstyle ':prezto:module:syntax-highlighting' styles \
-#   'builtin' 'bg=blue' \
-#   'command' 'bg=blue' \
-#   'function' 'bg=blue'
+  #   'builtin' 'bg=blue' \
+  #   'command' 'bg=blue' \
+  #   'function' 'bg=blue'
 #
 # Set syntax pattern styles.
 # zstyle ':prezto:module:syntax-highlighting' pattern \
-#   'rm*-rf*' 'fg=white,bold,bg=red'
+  #   'rm*-rf*' 'fg=white,bold,bg=red'
 
 #
 # Terminal

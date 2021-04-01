@@ -18,24 +18,24 @@ fi
 
 ## $XDG_CONFIG_HOME: $HOME/.config
 if [[ ! -x "$XDG_CONFIG_HOME" ]]; then
-    shell_config="$HOME/.config/shell"
+  shell_config="$HOME/.config/shell"
 else
-    shell_config="$XDG_CONFIG_HOME/shell"
+  shell_config="$XDG_CONFIG_HOME/shell"
 fi
 
 if [[ ! -x "$shell_config" ]]; then
-    mkdir -p "$shell_config"
+  mkdir -p "$shell_config"
 fi
 
 ## XDG_DATA_HOME: $HOME/.local/share
 if [[ ! -x "$XDG_DATA_HOME" ]]; then
-    shell_data="$HOME/.local/share/shell"
+  shell_data="$HOME/.local/share/shell"
 else
-    shell_data="$XDG_DATA_HOME/shell"
+  shell_data="$XDG_DATA_HOME/shell"
 fi
 
 if [[ ! -x "$shell_data" ]]; then
-    mkdir -p "$shell_data"
+  mkdir -p "$shell_data"
 fi
 
 # Path ------------------------------------------------------------
@@ -46,11 +46,19 @@ fi
 
 # move envariable setting to zshenv
 case $OSTYPE in
-    darwin*)
-        export EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
-        alias emacsclient=$EMACSCLIENT
-        ;;
-    *)
-        export EMACSCLIENT=emacsclient
-        ;;
+  darwin*)
+    if [[ -x /Applications/Emacs.app/Contents/MacOS/bin/emacsclient ]] ; then
+      export EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+    elif [[ -x           /opt/homebrew/opt/emacs-plus@27/bin/emacsclient ]] ; then
+      export EMACSCLIENT=/opt/homebrew/opt/emacs-plus@27/bin/emacsclient
+    elif [[ -x           /opt/homebrew/opt/emacs-plus/bin/emacsclient ]] ; then
+      export EMACSCLIENT=/opt/homebrew/opt/emacs-plus/bin/emacsclient
+    else
+      export EMACSCLIENT=emacsclient
+    fi
+    alias emacsclient=$EMACSCLIENT
+    ;;
+  *)
+    export EMACSCLIENT=emacsclient
+    ;;
 esac

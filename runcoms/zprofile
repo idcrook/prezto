@@ -148,7 +148,7 @@ if [[ "${os_name}" == "Darwin" ]] ; then
     echo "Unknown architecture: ${arch_name}"
   fi
 elif [[ "${os_name}" == "Linux" ]] ; then
-    echo "Linux running on ${arch_name}"
+  echo "Linux running on ${arch_name}"
 fi
 
 
@@ -194,17 +194,17 @@ path=("$HOME"/.local/bin $path)
 
 # more PATH config
 if [ -f ${shell_config}/path.zsh.inc ] ; then
-    # shellcheck source=/dev/null
-    source "${shell_config}"/path.zsh.inc
+  # shellcheck source=/dev/null
+  source "${shell_config}"/path.zsh.inc
 fi
 
 # https://github.com/golang/go/wiki/SettingGOPATH - https://golang.org/doc/code.html#GOPATH
 # mkdir -p ~/go/src/github.com ; mkdir -p ~/go/bin
 # NOTE: `go` executable must be in PATH
 if [[ -d $(go env GOPATH) ]] ; then
-    # export GOPATH=$HOME/go
-    export GOPATH=$(go env GOPATH)
-    path+=$(go env GOPATH)/bin
+  # export GOPATH=$HOME/go
+  export GOPATH=$(go env GOPATH)
+  path+=$(go env GOPATH)/bin
 fi
 
 # https://github.com/nvm-sh/nvm#installing-and-updating
@@ -217,22 +217,22 @@ fi
 # perl local modules
 # https://metacpan.org/pod/local::lib
 if [ -d $HOME/perl5/lib/perl5 ] ; then
-    # sets PERL5LIB and others
-    eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
-    # should warn that it is already in PATH
-    path+=$HOME/perl5/bin
+  # sets PERL5LIB and others
+  eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+  # should warn that it is already in PATH
+  path+=$HOME/perl5/bin
 fi
 
 if [[ "$OSTYPE" == linux* ]]
 then
-    # http://www.funtoo.org/Keychain
-    # sudo apt install keychain
-    if [ -x /usr/bin/keychain ]; then
-        keychainpath=/usr/bin/keychain
-        #eval "$($keychainpath --quiet --eval --agents ssh --inherit any id_rsa)"
-        eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
-        unset keychainpath
-   fi
+  # http://www.funtoo.org/Keychain
+  # sudo apt install keychain
+  if [ -x /usr/bin/keychain ]; then
+    keychainpath=/usr/bin/keychain
+    #eval "$($keychainpath --quiet --eval --agents ssh --inherit any id_rsa)"
+    eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
+    unset keychainpath
+  fi
 fi
 
 
@@ -242,6 +242,6 @@ fi
 # per host environment variables
 nodename=$(uname -n)
 if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
-    # shellcheck source=/dev/null
-    source "${shell_config}"/env.$nodename.sh
+  # shellcheck source=/dev/null
+  source "${shell_config}"/env.$nodename.sh
 fi
