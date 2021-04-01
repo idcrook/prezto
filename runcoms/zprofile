@@ -235,9 +235,14 @@ then
   fi
 fi
 
-
-# # added by rustup - enable prezto module instead
-# export PATH="$HOME/.cargo/bin:$PATH"
+# specialized environment variables
+if [[ "${os_name}" == 'Linux' ]] ; then
+    # source local configurations if found
+    if [[ -r "$shell_config/env.ANY-linux.sh" ]]; then
+        # shellcheck disable=1090
+        source "$shell_config/env.ANY-linux.sh"
+    fi
+fi
 
 # per host environment variables
 nodename=$(uname -n)
@@ -245,3 +250,6 @@ if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
   # shellcheck source=/dev/null
   source "${shell_config}"/env.$nodename.sh
 fi
+
+# # added by rustup - enable prezto module instead
+# export PATH="$HOME/.cargo/bin:$PATH"
