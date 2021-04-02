@@ -134,23 +134,30 @@ os_name="$(uname -s)"  # similar to $OSNAME
 
 # Diagnostics for runtime environment
 # https://cutecoder.org/software/detecting-apple-silicon-shell-script/
+rt_env_info="Unknown architecture: ${arch_name}"
+
 if [[ "${os_name}" == "Darwin" ]] ; then
   if [ "${arch_name}" = "x86_64" ]; then
     # Linux: sysctl: invalid option -- 'i'
     if [ "$(sysctl -in sysctl.proc_translated)" = "1" ]; then
-      echo "macOS running on Rosetta 2"
+      rt_env_info="macOS running on Rosetta 2"
     else
-      echo "macOS running on native Intel"
+      rt_env_info="macOS running on native Intel"
     fi
   elif [ "${arch_name}" = "arm64" ]; then
-    echo "macOS running on ARM"
+    rt_env_info="macOS running on ARM"
   else
-    echo "Unknown architecture: ${arch_name}"
+    rt_env_info="Unknown architecture: ${arch_name}"
   fi
 elif [[ "${os_name}" == "Linux" ]] ; then
-  echo "Linux running on ${arch_name}"
+  rt_env_info="Linux running on ${arch_name}"
 fi
 
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  # skip output if not interactive, since it breaks scp
+else
+  echo "${rt_env_info}"
+fi
 
 # Homebrew ------------------------------------------------------------
 
@@ -237,11 +244,11 @@ fi
 
 # specialized environment variables
 if [[ "${os_name}" == 'Linux' ]] ; then
-    # source local configurations if found
-    if [[ -r "$shell_config/env.ANY-linux.sh" ]]; then
-        # shellcheck disable=1090
-        source "$shell_config/env.ANY-linux.sh"
-    fi
+  # source local configurations if found
+  if [[ -r "$shell_config/env.ANY-linux.sh" ]]; then
+    # shellcheck disable=1090
+    source "$shell_config/env.ANY-linux.sh"
+  fi
 fi
 
 # per host environment variables
