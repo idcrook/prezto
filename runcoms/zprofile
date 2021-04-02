@@ -153,9 +153,8 @@ elif [[ "${os_name}" == "Linux" ]] ; then
   rt_env_info="Linux running on ${arch_name}"
 fi
 
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  # skip output if not interactive, since it breaks scp
-else
+# only output if interactive shell so that scp will work
+if [[ -o interactive ]]; then
   echo "${rt_env_info}"
 fi
 
