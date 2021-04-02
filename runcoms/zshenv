@@ -43,10 +43,11 @@ fi
 # /etc/zprofile is sourced after ~/.zshenv for interactive shells
 
 # PATH handling moved to zprofile
+os_name="$(uname -s)"  # similar to $OSTYPE builtin
 
 # move envariable setting to zshenv
-case $OSTYPE in
-  darwin*)
+case $os_name in
+  Darwin*)
     if [[ -x /Applications/Emacs.app/Contents/MacOS/bin/emacsclient ]] ; then
       export EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
     elif [[ -x           /opt/homebrew/opt/emacs-plus@27/bin/emacsclient ]] ; then
@@ -62,3 +63,20 @@ case $OSTYPE in
     export EMACSCLIENT=emacsclient
     ;;
 esac
+
+
+# specialized environment variables
+if [[ "${os_name}" == 'Linux' ]] ; then
+  # source local configurations if found
+  if [[ -r "$shell_config/env.ANY-linux.sh" ]]; then
+    # shellcheck disable=1090
+    source "$shell_config/env.ANY-linux.sh"
+  fi
+fi
+
+# per host environment variables
+nodename=$(uname -n)
+if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
+  # shellcheck source=/dev/null
+  source "${shell_config}"/env.$nodename.sh
+fi

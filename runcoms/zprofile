@@ -130,7 +130,7 @@ fi
 #
 
 arch_name="${CPUTYPE}" # same as `uname -m`
-os_name="$(uname -s)"  # similar to $OSNAME
+os_name="$(uname -s)"  # similar to $OSTYPE
 
 # Diagnostics for runtime environment
 # https://cutecoder.org/software/detecting-apple-silicon-shell-script/
@@ -173,8 +173,6 @@ if [[ "${arch_name}" == "x86_64" ]] ; then
     eval $(/usr/local/bin/brew shellenv)
   fi
 fi
-
-# /etc/zprofile is sourced after ~/.zshenv for interactive shells
 
 # Set the list of directories that Zsh searches for programs.
 
@@ -239,22 +237,6 @@ then
     eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
     unset keychainpath
   fi
-fi
-
-# specialized environment variables
-if [[ "${os_name}" == 'Linux' ]] ; then
-  # source local configurations if found
-  if [[ -r "$shell_config/env.ANY-linux.sh" ]]; then
-    # shellcheck disable=1090
-    source "$shell_config/env.ANY-linux.sh"
-  fi
-fi
-
-# per host environment variables
-nodename=$(uname -n)
-if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
-  # shellcheck source=/dev/null
-  source "${shell_config}"/env.$nodename.sh
 fi
 
 # # added by rustup - enable prezto module instead
