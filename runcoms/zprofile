@@ -24,6 +24,8 @@ fi
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
+elif [[ "$OSTYPE" == linux* ]]; then
+  export BROWSER='xdg-open'
 fi
 
 #
@@ -227,14 +229,19 @@ if [ -d $HOME/perl5/lib/perl5 ] ; then
   path+=$HOME/perl5/bin
 fi
 
-if [[ "$OSTYPE" == linux* ]]
+if [[ "${os_name}" == Linux ]]
 then
   # http://www.funtoo.org/Keychain
   # sudo apt install keychain
   if [ -x /usr/bin/keychain ]; then
     keychainpath=/usr/bin/keychain
-    #eval "$($keychainpath --quiet --eval --agents ssh --inherit any id_rsa)"
-    eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
+    # "--inherit any" allows inheriting a forwarded agent
+    # only have output if interactive shell so scp will not break
+    if [[ -o interactive ]] ; then
+      eval "$($keychainpath --eval --agents ssh --inherit any id_rsa)"
+    else
+      eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
+    fi
     unset keychainpath
   fi
 fi
