@@ -74,6 +74,15 @@ if [[ "${os_name}" == 'Linux' ]] ; then
   fi
 fi
 
+# specialized environment variables
+if [[ "${os_name}" == 'Darwin' ]] ; then
+  # source local configurations if found
+  if [[ -r "$shell_config/env.ANY-macos.sh" ]]; then
+    # shellcheck disable=1090
+    source "$shell_config/env.ANY-macos.sh"
+  fi
+fi
+
 # per host environment variables
 nodename=$(uname -n)
 if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
