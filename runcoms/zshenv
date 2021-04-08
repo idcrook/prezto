@@ -64,6 +64,11 @@ case $os_name in
     ;;
 esac
 
+# environment variables
+if [[ -r "$shell_config/env.ANY-any.sh" ]]; then
+  # shellcheck disable=1090
+  source "$shell_config/env.ANY-any.sh"
+fi
 
 # specialized environment variables
 if [[ "${os_name}" == 'Linux' ]] ; then
