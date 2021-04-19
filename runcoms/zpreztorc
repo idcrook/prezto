@@ -74,9 +74,6 @@ zstyle ':prezto:load' pmodule \
 # 'dpkg' is safe on macOS -- checks for dpkg and apt-get
 
 #  'ruby' \
-  #  'python' \
-  #  'rust' \
-  #  'node' \
 
 
 #
