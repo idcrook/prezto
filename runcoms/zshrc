@@ -17,7 +17,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# add any other locals to FPATH before running zprezto init (compinit caching)
+# add any other locals to fpath BEFORE running zprezto init (compinit caching)
 if [[ -f ${ZDOTDIR:-$HOME}/.zsh/completions.zsh ]] ; then
   source ${ZDOTDIR:-$HOME}/.zsh/completions.zsh
 fi
