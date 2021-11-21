@@ -229,22 +229,23 @@ if [ -d $HOME/perl5/lib/perl5 ] ; then
   path+=$HOME/perl5/bin
 fi
 
-if [[ "${os_name}" == Linux ]]
-then
-  # http://www.funtoo.org/Keychain
-  # sudo apt install keychain
-  if [ -x /usr/bin/keychain ]; then
-    keychainpath=/usr/bin/keychain
-    # "--inherit any" allows inheriting a forwarded agent
-    # only have output if interactive shell so scp will not break
-    if [[ -o interactive ]] ; then
-      eval "$($keychainpath --eval --agents ssh --inherit any id_rsa)"
-    else
-      eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
-    fi
-    unset keychainpath
-  fi
-fi
+# enable prezto ssh module instead
+# if [[ "${os_name}" == Linux ]]
+# then
+#   # http://www.funtoo.org/Keychain
+#   # sudo apt install keychain
+#   if [ -x /usr/bin/keychain ]; then
+#     keychainpath=/usr/bin/keychain
+#     # "--inherit any" allows inheriting a forwarded agent
+#     # only have output if interactive shell so scp will not break
+#     if [[ -o interactive ]] ; then
+#       eval "$($keychainpath --eval --agents ssh --inherit any id_rsa)"
+#     else
+#       eval "$($keychainpath --quiet --noask --eval --agents ssh --inherit any id_rsa)"
+#     fi
+#     unset keychainpath
+#   fi
+# fi
 
 # # added by rustup - enable prezto module instead
 # export PATH="$HOME/.cargo/bin:$PATH"

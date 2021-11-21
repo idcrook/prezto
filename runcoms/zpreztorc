@@ -204,17 +204,11 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 # Automatically initialize virtualenvwrapper if pre-requisites are met.
 # zstyle ':prezto:module:python:virtualenv' initialize 'yes'
 
-# virtualenvwrapper is automatically initialized if pre-requisites are met,
-# including if `virtualenv` is in $PATH. This can be disabled with:
-# zstyle ':prezto:module:python:virtualenv' initialize 'no'
+# disable virtualenvwrapper see modules/python
+zstyle ':prezto:module:python' skip-virtualenvwrapper-init 'on'
 
 # See:
 # https://github.com/sorin-ionescu/prezto/blob/master/modules/python/README.md#virtualenvwrapper
-
-# To display the name of the current virtual enviroment in a prompt, define the
-# following style in the prompt_name_setup function.
-# # %v - virtualenv name.
-# zstyle ':prezto:module:python:info:virtualenv' format 'virtualenv:%v'
 
 #
 # Ruby
@@ -240,9 +234,7 @@ zstyle ':prezto:module:prompt' theme 'powerlevel10k'
 # Set the SSH identities to load into the agent.
 # zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_rsa2' 'id_github'
 #zstyle ':prezto:module:ssh:load' identities 'id_rsa'
-zstyle ':prezto:module:ssh:load' identities 'id_rsa'
-
-# Stop using keychain utility instead of ssh module
+zstyle ':prezto:module:ssh:load' identities 'id_rsa' 'id_ed25519'
 
 #
 # Syntax Highlighting
