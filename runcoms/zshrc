@@ -74,7 +74,8 @@ if [[ "$LC_TERMINAL" = "ShellFish" ]]; then
   unalias pbcopy 2> /dev/null
   # unalias avoids error:
   #    .shellfishrc: defining function based on alias `pbcopy`
-  [[ ! -f ~/.shellfishrc ]] || source ~/.shellfishrc
+  #[[ ! -f ~/.shellfishrc ]] || source ~/.shellfishrc
+  test -e "$HOME/.shellfishrc" && source "$HOME/.shellfishrc"
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
