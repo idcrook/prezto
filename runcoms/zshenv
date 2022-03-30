@@ -45,18 +45,30 @@ fi
 # PATH handling moved to zprofile
 os_name="$(uname -s)"  # similar to $OSTYPE builtin
 
-# move envariable setting to zshenv
+# brew shellenv is handled in zprofile, so duplicated a little here
 case $os_name in
   Darwin*)
-    if [[ -x /Applications/Emacs.app/Contents/MacOS/bin/emacsclient ]] ; then
-      export EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
-    elif [[ -x           /opt/homebrew/opt/emacs-plus@27/bin/emacsclient ]] ; then
-      export EMACSCLIENT=/opt/homebrew/opt/emacs-plus@27/bin/emacsclient
-    elif [[ -x           /opt/homebrew/opt/emacs-plus/bin/emacsclient ]] ; then
-      export EMACSCLIENT=/opt/homebrew/opt/emacs-plus/bin/emacsclient
+    if [ -x /opt/homebrew/bin/brew ] ; then
+      bprefix="$(/opt/homebrew/bin/brew --prefix)"
+    elif [ -x /usr/local/bin/brew ] ; then
+      bprefix="$(/usr/local/bin/brew --prefix)"
     else
-      export EMACSCLIENT=emacsclient
+      bprefix="/usr/local"
     fi
+    if [[ -x /Applications/Emacs.app/Contents/MacOS/bin/emacsclient ]] ; then
+      EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
+    elif [[ -x    "${bprefix}"/opt/emacs-plus@27/bin/emacsclient ]] ; then
+      EMACSCLIENT="${bprefix}"/opt/emacs-plus@27/bin/emacsclient
+    elif [[ -x    "${bprefix}"/opt/emacs-plus@28/bin/emacsclient ]] ; then
+      EMACSCLIENT="${bprefix}"/opt/emacs-plus@28/bin/emacsclient
+    elif [[ -x    "${bprefix}"/opt/emacs-plus@29/bin/emacsclient ]] ; then
+      EMACSCLIENT="${bprefix}"/opt/emacs-plus@29/bin/emacsclient
+    elif [[ -x    "${bprefix}"/opt/emacs-plus/bin/emacsclient ]] ; then
+      EMACSCLIENT="${bprefix}"/opt/emacs-plus/bin/emacsclient
+    else
+      EMACSCLIENT=emacsclient
+    fi
+    export EMACSCLIENT
     alias emacsclient=$EMACSCLIENT
     ;;
   *)
