@@ -22,9 +22,9 @@ fi
 # Browser
 #
 
-if [[ "$OSTYPE" == darwin* ]]; then
+if [[ -z "$BROWSER" && "$OSTYPE" == darwin* ]]; then
   export BROWSER='open'
-elif [[ "$OSTYPE" == linux* ]]; then
+elif [[ -z "$BROWSER" && "$OSTYPE" == linux* ]]; then
   export BROWSER='xdg-open'
 fi
 
@@ -55,9 +55,16 @@ case $OSTYPE in
     ;;
 esac
 
+if [[ -z "$EDITOR" ]]; then
+  export EDITOR='nano'
+fi
+if [[ -z "$VISUAL" ]]; then
+  export VISUAL="$EDITOR"
+fi
+if [[ -z "$PAGER" ]]; then
+  export PAGER='less'
+fi
 
-export VISUAL=$EDITOR
-export PAGER='less'
 
 
 #
@@ -79,11 +86,13 @@ typeset -gU cdpath fpath mailpath path
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
 # Remove -X to enable it.
-export LESS='-g -i -M -R -S -w -X -z-4'
+if [[ -z "$LESS" ]]; then
+  export LESS='-g -i -M -R -S -w -X -z-4'
+fi
 
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
-if (( $#commands[(i)lesspipe(|.sh)] )); then
+if [[ -z "$LESSOPEN" ]] && (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
