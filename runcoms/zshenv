@@ -57,10 +57,10 @@ case $os_name in
     fi
     if [[ -x /Applications/Emacs.app/Contents/MacOS/bin/emacsclient ]] ; then
       EMACSCLIENT=/Applications/Emacs.app/Contents/MacOS/bin/emacsclient
-    elif [[ -x    "${bprefix}"/opt/emacs-plus@27/bin/emacsclient ]] ; then
-      EMACSCLIENT="${bprefix}"/opt/emacs-plus@27/bin/emacsclient
     elif [[ -x    "${bprefix}"/opt/emacs-plus@28/bin/emacsclient ]] ; then
       EMACSCLIENT="${bprefix}"/opt/emacs-plus@28/bin/emacsclient
+    elif [[ -x    "${bprefix}"/opt/emacs-plus@27/bin/emacsclient ]] ; then
+      EMACSCLIENT="${bprefix}"/opt/emacs-plus@27/bin/emacsclient
     elif [[ -x    "${bprefix}"/opt/emacs-plus@29/bin/emacsclient ]] ; then
       EMACSCLIENT="${bprefix}"/opt/emacs-plus@29/bin/emacsclient
     elif [[ -x    "${bprefix}"/opt/emacs-plus/bin/emacsclient ]] ; then
