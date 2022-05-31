@@ -47,6 +47,7 @@ zstyle ':prezto:load' pmodule \
        'spectrum' \
        'utility' \
        'completion' \
+       'kubernetes' \
        'syntax-highlighting' \
        'history-substring-search' \
        'prompt' \
@@ -63,6 +64,8 @@ zstyle ':prezto:load' pmodule \
 #  'autosuggestions' \
 
 # 'completion' must be loaded **after** the *utility* module.
+
+# 'kubernetes' should be loaded **after** the *completions* module?
 
 # For 'fasd' completion to work, 'fasd' must be loaded after the completion
 # module.
