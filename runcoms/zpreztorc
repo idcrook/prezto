@@ -41,7 +41,6 @@ zstyle ':prezto:load' pmodule \
        'osx' \
        'node' \
        'python' \
-       'perl' \
        'rust' \
        'tmux' \
        'spectrum' \
@@ -78,6 +77,7 @@ zstyle ':prezto:load' pmodule \
 
 #  'ruby' \
 
+#  'perl' \
 
 #
 # Autosuggestions
