@@ -27,6 +27,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+# Secure shellfish (iOS app) integration
+test -e "$HOME/.shellfishrc" && source "$HOME/.shellfishrc"
+
 # custom aliases in ~/.zsh/aliases.zsh
 if [[ -f ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh ]] ; then
     source ${ZDOTDIR:-$HOME}/.zsh/aliases.zsh
