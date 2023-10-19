@@ -47,6 +47,7 @@ zstyle ':prezto:load' pmodule \
        'utility' \
        'completion' \
        'kubernetes' \
+       'mojo' \
        'syntax-highlighting' \
        'history-substring-search' \
        'prompt' \
