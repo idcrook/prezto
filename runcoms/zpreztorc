@@ -42,6 +42,7 @@ zstyle ':prezto:load' pmodule \
        'emacs-action' \
        'node' \
        'python' \
+       'ruby' \
        'rust' \
        'tmux' \
        'spectrum' \
