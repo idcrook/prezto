@@ -204,6 +204,7 @@ fi
 if [[ "${os_name}" == "Linux" ]] ; then
   path=(
     /usr/local/{bin,sbin}
+    /usr/local/cuda/bin(N)
     $path
   )
   if [[ -d /usr/local/go/bin ]] ; then
