@@ -101,7 +101,8 @@ if [[ "${os_name}" == 'Darwin' ]] ; then
 fi
 
 # per host environment variables
-nodename=$(uname -n)
+# tried: uname -n, but that includes .localdomain
+nodename=$(hostname -s)
 if [[ -f "${shell_config}"/env.$nodename.sh ]] ; then
   # shellcheck source=/dev/null
   source "${shell_config}"/env.$nodename.sh
