@@ -35,7 +35,7 @@ zstyle ':prezto:load' pmodule \
        'terminal' \
        'editor' \
        'history' \
-       'command-not-found' \
+       'brew-command-not-found' \
        'directory' \
        'git' \
        'osx' \
