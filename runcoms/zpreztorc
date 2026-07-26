@@ -33,6 +33,7 @@ zstyle ':prezto:load' pmodule-dirs $HOME/.zprezto-contrib
 zstyle ':prezto:load' pmodule \
        'environment' \
        'terminal' \
+       'vterm' \
        'editor' \
        'history' \
        'brew-command-not-found' \
