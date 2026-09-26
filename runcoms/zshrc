@@ -74,9 +74,7 @@ if [[ "$(uname -s)" == 'Linux' ]] && [[ "$(uname -n)" == rpi* ]]; then
   # handles xterm-256color tmux-256color
   # shellcheck source=/dev/null
   [[ "$TERM" == *-256color ]] && test -e "${shell_config}/.iterm2_shell_integration.pi.zsh" && source "${shell_config}/.iterm2_shell_integration.pi.zsh"
-  echo hi pi `uname -n`
 fi
-
 
 # Secure shellfish (iOS app) integration
 if [[ "$LC_TERMINAL" = "ShellFish" ]]; then
